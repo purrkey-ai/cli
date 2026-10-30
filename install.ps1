@@ -1,5 +1,5 @@
 $ErrorActionPreference = 'Stop'
-$version = '0.3.0'
+$version = '0.3.1'
 $base = "https://github.com/purrkey-ai/cli/releases/download/v$version"
 
 if ([Environment]::OSVersion.Platform -ne [PlatformID]::Win32NT) {
@@ -9,7 +9,7 @@ if ([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture -ne [Sys
     throw 'The Windows CLI package currently supports x64 only.'
 }
 
-$archive = "agenttoolx-$version-windows-amd64.zip"
+$archive = "purrkey-$version-windows-amd64.zip"
 $stage = Join-Path ([IO.Path]::GetTempPath()) ([Guid]::NewGuid().ToString())
 $pending = $null
 New-Item -ItemType Directory -Path $stage | Out-Null
@@ -31,13 +31,13 @@ try {
     Expand-Archive -LiteralPath $archivePath -DestinationPath (Join-Path $stage 'unpacked')
     $installDir = if ($env:ATX_INSTALL_DIR) { $env:ATX_INSTALL_DIR } else { Join-Path $env:LOCALAPPDATA 'Purrkey\bin' }
     New-Item -ItemType Directory -Force -Path $installDir | Out-Null
-    $pending = Join-Path $installDir ('.atx-' + [Guid]::NewGuid().ToString() + '.exe')
-    Copy-Item -LiteralPath (Join-Path $stage 'unpacked\atx.exe') -Destination $pending
+    $pending = Join-Path $installDir ('.purrkey-' + [Guid]::NewGuid().ToString() + '.exe')
+    Copy-Item -LiteralPath (Join-Path $stage 'unpacked\purrkey.exe') -Destination $pending
     $actual = & $pending version
     if ($LASTEXITCODE -ne 0 -or $actual -ne $version) {
         throw 'Downloaded CLI version does not match this installer.'
     }
-    Move-Item -LiteralPath $pending -Destination (Join-Path $installDir 'atx.exe') -Force
+    Move-Item -LiteralPath $pending -Destination (Join-Path $installDir 'purrkey.exe') -Force
     $pending = $null
     $env:Path = "$installDir;$env:Path"
     Write-Output "Installed Purrkey CLI $version in $installDir."

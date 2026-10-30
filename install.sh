@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="0.3.0"
+version="0.3.1"
 base="https://github.com/purrkey-ai/cli/releases/download/v$version"
 case "$(uname -s)" in
   Darwin) os=darwin ;;
@@ -14,7 +14,7 @@ case "$(uname -m)" in
   *) printf 'Unsupported CPU architecture.\n' >&2; exit 1 ;;
 esac
 
-archive="agenttoolx-$version-$os-$arch.tar.gz"
+archive="purrkey-$version-$os-$arch.tar.gz"
 stage="$(mktemp -d)"
 pending=""
 trap 'rm -rf "$stage"; if [ -n "$pending" ]; then rm -f "$pending"; fi' EXIT
@@ -33,18 +33,18 @@ fi
     shasum -a 256 -c selected.sha256
   fi
 )
-tar -xzf "$stage/$archive" -C "$stage" atx
+tar -xzf "$stage/$archive" -C "$stage" purrkey
 install_dir="${ATX_INSTALL_DIR:-$HOME/.local/bin}"
 mkdir -p "$install_dir"
-pending="$(mktemp "$install_dir/.atx.XXXXXX")"
-install -m 0755 "$stage/atx" "$pending"
+pending="$(mktemp "$install_dir/.purrkey.XXXXXX")"
+install -m 0755 "$stage/purrkey" "$pending"
 if [ "$("$pending" version)" != "$version" ]; then
   printf 'Downloaded CLI version does not match this installer.\n' >&2
   exit 1
 fi
-mv -f "$pending" "$install_dir/atx"
+mv -f "$pending" "$install_dir/purrkey"
 pending=""
-printf 'Installed Purrkey CLI %s: %s/atx\n' "$version" "$install_dir"
+printf 'Installed Purrkey CLI %s: %s/purrkey\n' "$version" "$install_dir"
 case ":$PATH:" in
   *":$install_dir:"*) ;;
   *) printf 'Add the installation directory to PATH in your shell:\nexport PATH=%q:$PATH\n' "$install_dir" ;;
