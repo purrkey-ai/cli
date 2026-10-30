@@ -1,2 +1,2 @@
 # cli
-`Official Purrkey CLI releases and installation scripts
+Official Purrkey CLI releases and installation scripts
