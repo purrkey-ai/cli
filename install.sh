@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-version="0.3.2"
+version="0.3.3"
 base="https://github.com/purrkey-ai/cli/releases/download/v$version"
 case "$(uname -s)" in
   Darwin) os=darwin ;;
