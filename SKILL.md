@@ -5,7 +5,7 @@ description: Discover and run Purrkey.ai tools when the user requests external q
 
 # Purrkey.ai
 
-Requires Purrkey CLI 0.3.1 or a compatible newer 0.3.x release. The executable is `purrkey`. Use `purrkey --help` and `<command> --help` to read the installed command flags.
+Requires Purrkey CLI 0.3.2 or a compatible newer 0.3.x release. The executable is `purrkey`. Use `purrkey --help` and `<command> --help` to read the installed command flags.
 
 ## Prepare
 
@@ -39,10 +39,10 @@ Save this document as `SKILL.md` in the current client's user skill directory, u
 Check existing access with `purrkey balance`. If it succeeds, reuse the configured key. Otherwise, finish with a short installation result, the [API Keys page](https://ai.pkmon.app/keys), and this single command for the user to run locally:
 
 ```sh
-purrkey config
+purrkey keys add YOUR_API_KEY
 ```
 
-Tell the user to paste their API Key into the hidden prompt and press Enter. The CLI has the production API built in, verifies access and saves the key with owner-only permissions. No API address or separate verification command is needed. Keep keys out of chat, command arguments, generated reports and committed files. Scripted secret stores can use `purrkey config --key-stdin`; API origin overrides are for explicitly requested development or other deployments, not ordinary setup.
+Tell the user explicitly: "Replace `YOUR_API_KEY` with the key you created on the API Keys page, then run the complete command in your terminal." Always show the full command with the placeholder in the code block, rather than a bare configuration command. `purrkey keys add -k YOUR_API_KEY` is also supported. The CLI has the production API built in, verifies access and saves the key with owner-only permissions. No API address or separate verification command is needed. Show only the placeholder in chat, never a real key. Keep real keys out of generated reports and committed files. Hidden input remains available through `purrkey config`, and scripted secret stores can use `purrkey config --key-stdin`; API origin overrides are for explicitly requested development or other deployments, not ordinary setup.
 
 Local installation is complete once the CLI and Skill are saved; account access is ready once authentication succeeds. Report missing key access separately without repeating installation details. A zero balance allows discovery and inspection. Setup does not run paid tools or authorize wallet payments; a loaded Skill grants no credentials or payment authority.
 

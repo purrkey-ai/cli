@@ -40,12 +40,13 @@ Create an API Key on [the website](https://ai.pkmon.app/keys) and configure
 it locally:
 
 ```sh
-purrkey config
+purrkey keys add YOUR_API_KEY
 ```
 
-Paste the key into the hidden prompt and press Enter. The CLI connects to Purrkey.ai,
-verifies access and saves your key automatically. Keep the key out of chat and command arguments.
-For scripted secret stores, use `purrkey config --key-stdin`.
+Replace `YOUR_API_KEY` with the key you created on the API Keys page and run the command.
+`purrkey keys add -k YOUR_API_KEY` is also supported. The CLI connects to Purrkey.ai,
+verifies access and saves your key automatically. Keep the real key out of chat and committed files.
+For hidden input, use `purrkey config`. For scripted secret stores, use `purrkey config --key-stdin`.
 Agent instructions: [SKILL.md](https://ai.pkmon.app/SKILL.md).
 
 Re-run the installer to update. Published release assets are immutable; each release

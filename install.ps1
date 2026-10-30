@@ -1,5 +1,5 @@
 $ErrorActionPreference = 'Stop'
-$version = '0.3.1'
+$version = '0.3.2'
 $base = "https://github.com/purrkey-ai/cli/releases/download/v$version"
 
 if ([Environment]::OSVersion.Platform -ne [PlatformID]::Win32NT) {
